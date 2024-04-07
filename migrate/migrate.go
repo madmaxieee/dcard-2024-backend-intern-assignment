@@ -12,4 +12,5 @@ func init() {
 
 func main() {
 	initializers.DB.AutoMigrate(&models.Advertisement{})
+	initializers.DB.AutoMigrate(&models.Condition{})
 }
