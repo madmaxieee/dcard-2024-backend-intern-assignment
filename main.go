@@ -1,19 +1,13 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
-	"github.com/madmaxieee/dcard-2024-backend-intern-assignment/database"
+	"github.com/madmaxieee/dcard-2024-backend-intern-assignment/initializers"
 )
 
 func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	database.ConnectToDb()
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDb()
 }
 
 func main() {
