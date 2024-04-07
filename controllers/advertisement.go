@@ -7,39 +7,31 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// request body
-// '{
-// "title": "AD 55",
-// "startAt": "2023-12-10T03:00:00.000Z",
-// "endAt": "2023-12-31T16:00:00.000Z",
-// "conditions": [
-// {
-// "ageStart": 20,
-// "ageEnd": 30,
-// "country: ["TW", "JP"],
-// "platform": ["android", "ios"]
-// }
-// ]
-// }'
-
 func CreateAdvertisement(c *gin.Context) {
-	var body struct {
-		Title      string `json:"title"`
-		StartAt    string `json:"startAt"`
-		EndAt      string `json:"endAt"`
-		Conditions []struct {
-			AgeStart int      `json:"ageStart"`
-			AgeEnd   int      `json:"ageEnd"`
-			Country  []string `json:"country"`
-			Platform []string `json:"platform"`
-		} `json:"conditions"`
+	type Condition struct {
+		AgeStart int      `json:"ageStart"`
+		AgeEnd   int      `json:"ageEnd"`
+		Country  []string `json:"country"`
+		Platform []string `json:"platform"`
 	}
 
-	c.BindJSON(&body)
+	type Body struct {
+		Title      string      `json:"title"`
+		StartAt    string      `json:"startAt"`
+		EndAt      string      `json:"endAt"`
+		Conditions []Condition `json:"conditions"`
+	}
 
-	fmt.Printf("%+v", body)
+	var err error
+	var body Body
+	err = c.BindJSON(&body)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Printf("%+v\n", body)
 
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Hello world",
+		"message": "Advertisement created successfully",
 	})
 }

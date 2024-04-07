@@ -13,7 +13,7 @@ func init() {
 
 func main() {
 	app := gin.Default()
-	app.GET("/api/v1/ad", controllers.CreateAdvertisement)
+	app.POST("/api/v1/ad", controllers.CreateAdvertisement)
 
 	app.Run()
 }
