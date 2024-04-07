@@ -1,11 +1,9 @@
 package main
 
 import (
-	"log"
-
-	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/madmaxieee/dcard-2024-backend-intern-assignment/database"
+	"log"
 )
 
 func init() {
@@ -17,13 +15,5 @@ func init() {
 }
 
 func main() {
-	app := gin.Default()
-
-	app.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello World",
-		})
-	})
-
-	app.Run()
+	database.DB.AutoMigrate(&database.Advertisement{})
 }
